@@ -7,11 +7,11 @@ import {createReadStream} from 'fs';
 
 const csvToJson = async (path: string, delimiter: string) => {
 
-    const arrayOfReadStringsArray: string[][] = [];
-
     //funtion that changes data from csv rows to array of strings array
 
     const readData = async (): Promise<string[][]> => {
+
+        const arrayOfReadStringsArray: string[][] = [];
 
         return new Promise((resolve, reject) => {
 
@@ -50,9 +50,9 @@ const csvToJson = async (path: string, delimiter: string) => {
         type returnObjectType = Record<any, string>;
 
         return dataArr.map(singleRow => {
-
+            //single object to return to arr
             let obj: returnObjectType = {};
-
+            //creates object fields with its values
             for (let i = 0; i < singleRow.length; i++) {
                 obj[`${fieldNames[i]}`] = singleRow[i];
             }
@@ -60,7 +60,6 @@ const csvToJson = async (path: string, delimiter: string) => {
             return obj;
 
         })
-
     }
 
     const rawData = await readData();
@@ -69,6 +68,3 @@ const csvToJson = async (path: string, delimiter: string) => {
 
 }
 
-(async () => {
-    console.log(await csvToJson("./training.csv", ";"));
-})();
